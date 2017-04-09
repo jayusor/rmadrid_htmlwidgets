@@ -1,0 +1,4 @@
+liquid_gauge	liquid_gauge
+liquid_gauge-shiny	liquid_gauge-shiny
+liquid_gaugeOutput	liquid_gauge-shiny
+renderLiquid_gauge	liquid_gauge-shiny

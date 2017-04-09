@@ -1,0 +1,106 @@
+---
+title: "RMadrid: htmlwidgets"
+subtitle: "Grupo Usuarios R Madrid"
+author: 'Jorge Ayuso Rejas  &nbsp;&nbsp; <a href="http://es.linkedin.com/pub/jorge-ayuso-rejas/64/911/25b/"  style="border-bottom: none;"><img src="img/linkedin.png">  </a><a href="mailto:jayusor@gmail.com"  style="border-bottom: none;"><img src="img/mail.jpg"></a>  <a href="https://twitter.com/jayusor"  style="border-bottom: none;"><img src="img/twitter.png"></a>@jayusor'
+date: "Abril 2017"
+output:
+  ioslides_presentation:
+    widescreen: true
+    smaller: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,cache=FALSE)
+```
+
+## Tipos de gráficos (según yo)
+
+Cuando estoy trabajando con datos distingo dos tipos de gráficos:
+
+&nbsp;
+
+### los míos
+
+Suelen ser feos, técnicos y que uso de manera exploratoria para entender los datos
+
+&nbsp;
+
+### para otros
+
+Suelen ser más bonitos, fáciles de entender y autoexplicativos
+
+
+## Gráficos básicos (en la intimidad)
+
+```{r,fig.align='center',fig.width=10}
+par(mfrow=c(1,2))
+boxplot(Sepal.Length~Species,iris,col=2:4)
+plot(density(iris$Sepal.Length))
+```
+
+
+## Gráficos de calidad: `ggplot2`
+
+```{r,fig.align='center',echo=FALSE}
+library(ggplot2)
+readRDS("ggplot_example.rds") + ggtitle("Serie de pasajeros")
+```
+
+
+## ¿Cuantás veces imprimes una presentación?
+
+> Esto me lo pones en una PPT
+
+
+
+## Gráficos interactivos: molan
+
+* googleVis: https://cran.r-project.org/web/packages/googleVis/vignettes/googleVis_examples.html
+* rCharts: http://ramnathv.github.io/rCharts/
+* ggvis: http://ggvis.rstudio.com/
+* plotly: https://plot.ly/r/
+* rbokeh: http://hafen.github.io/rbokeh/
+* dygraphs: https://rstudio.github.io/dygraphs/
+* leaflet: https://rstudio.github.io/leaflet/
+* highcharter: http://jkunst.com/highcharter/
+* DiagrammeR: http://rich-iannone.github.io/DiagrammeR/
+* ...
+
+
+## El primero de todos: `rCharts`
+
+
+
+```{r,results='asis'}
+library(rCharts)
+hair_eye_male <- subset(as.data.frame(HairEyeColor), Sex == "Male")
+n1 <- nPlot(Freq ~ Hair, group = "Eye", data = hair_eye_male, type = "multiBarChart")
+n1$show("iframesrc", cdn = TRUE)
+```
+
+
+## ¿Qué tienen en común?
+
+```{r}
+c()
+```
+
+
+
+
+
+
+
+## htmlwidget
+
+http://gallery.htmlwidgets.org/
+
+## Mi paquete
+
+
+
+
+
+
+
