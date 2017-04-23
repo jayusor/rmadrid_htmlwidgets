@@ -123,7 +123,7 @@ class: center, middle, inverse
 ]
 .right-column[
 
-Los gráficos en `javascript` son interactivos, están diseñados por y para las webs pero también podemos usarlos en presentaciones (como en esta!), no se pixelan...
+Los gráficos en `javascript` son interactivos, están diseñados por y para las webs pero también podemos usarlos en presentaciones (como en esta!), no se pixelan, y nos puende aportar mucha más información con un click.
 
 
 &nbsp;   
@@ -192,7 +192,7 @@ hchart(
 ## Gráficos javascript
 ## Ejemplos
 ### - highcharter
-### - dygraph
+### - dygraphs
 
 ]
 .right-column[
@@ -210,7 +210,7 @@ cbind(mdeaths, fdeaths) %>%
 ## Gráficos javascript
 ## Ejemplos
 ### - highcharter
-### - dygraph
+### - dygraphs
 ### - leaflet
 
 ]
@@ -222,8 +222,31 @@ leaflet() %>%
   addTiles() %>%
   addMarkers(
     lng=-3.6959795, lat=40.41052682,
-    popup="The birthplace of R"
+    popup="Meetup R"
   )
+```
+]
+
+---
+.left-column[
+## Gráficos javascript
+## Ejemplos
+### - highcharter
+### - dygraphs
+### - leaflet
+### - DiagrammeR
+
+]
+.right-column[
+`diagrammeR`
+```{r,fig.width=8,fig.height=5,fig.align='center'}
+library(DiagrammeR)
+grViz("
+  digraph {
+    layout = twopi
+    node [shape = circle]
+    A -> {B C D} 
+}")
 ```
 ]
 
@@ -235,42 +258,136 @@ class: center, middle, inverse
 
 ---
 class: center, middle
-## htmlwidgets
+# htmlwidgets
 
 http://www.htmlwidgets.org/
 
 
 
 ---
-## htmlwidget
+## htmlwidgets
 
-http://gallery.htmlwidgets.org/
+
+&nbsp;   
+
+
+
+> Bring the best of JavaScript data visualization to R
+
+&nbsp;
+
+--
++ Pudes usar los gráficos como un `plot` desde la consola
+
+```{r,eval=FALSE}
+library(highcharter)
+hchart(AirPassengers)
+```
+
+--
++ Es totalmente compatible con `rmarkdown` y `shiny`
+```{r,eval=FALSE}
+outpus$serie <- renderHighchart({
+  hchart(input$data)  
+})
+```
+
+
+--
++ Nos facilita mucho crear nuevos paquetes...
+
 
 ---
-## Mi paquete
+## He venido a hablar de mi paquete:    
 
+&nbsp;   
+
+<center>
+<h2><tt>LiquidGaugeR</tt></h2>
+
+
+```{r,echo=FALSE,fig.width=4,fig.height=4}
+library(LiquidGaugeR)
+liquid_gauge(37)
+```
+
+</center>
+
+
+
+---
+.left-column[
+## LiquidGaugeR
+### - Idea inicial
+
+]
+.right-column[
+
+En la web de `htmlwidget` existe un tutorial de como crear nuevos paquetes:
+
+
+http://www.htmlwidgets.org/develop_intro.html
+
+
+&nbsp;   
+
+
+Quería probar así que busqué un gráfico fácil y sencillo:
+
+&nbsp;   
+
+<style>
+.container {
+  display: flex; /* or inline-flex */
+  justify-content: space-between 
+}
+</style>
+
+.container[
+```{r,echo=FALSE,fig.width=2,fig.height=2}
+liquid_gauge(25)
+```
+```{r,echo=FALSE,fig.width=2,fig.height=2}
+list(
+  circleThickness= 0.15,
+  circleColor= "#808015",
+  textColor= "#555500",
+  waveTextColor= "#FFFFAA",
+  waveColor= "#AAAA39",
+  textVertPosition= 0.8,
+  waveAnimateTime= 1000,
+  waveHeight= 0.05,
+  waveAnimate= TRUE,
+  waveRise= TRUE,
+  waveOffset= 0.25,
+  textSize= 0.75,
+  waveCount= 3
+) -> opciones1
+liquid_gauge(75,options = opciones1)
+```
+```{r,echo=FALSE,fig.width=2,fig.height=2}
+list(
+  circleColor= "#FF7777",
+  textColor= "#FF4444",
+  waveTextColor= "#FFAAAA",
+  waveColor= "#FFDDDD",
+  circleThickness= 0.2,
+  textVertPosition= 0.2,
+  waveAnimateTime= 1000,
+  backgroundColor= "#e0e0e0",
+  valueCountUpAtStart= FALSE,
+  waveRiseAtStart= T
+) -> opciones2
+liquid_gauge(46,opciones2)
+```
+]
+http://bl.ocks.org/brattonc/5e5ce9beee483220e2f6
+
+  
+
+]
 
 ---
 class: center, middle, inverse
-## htmlwidgets
----
-layout: false
-.left-column[
-  ## What is it?
-]
-.right-column[
-  **A framework to easily create bindings between R and JavaScript libraries.**
-  
-  Started as a project by [Ramnath Vaidyanathan](https://github.com/ramnathv), based on [JJ Allaire](https://github.com/jjallaire)'s justgage project.
-  
-  Now a team effort by  Ramnath Vaidyanathan, [Joe Cheng](https://github.com/jcheng5), JJ Allaire, [Yihui Xie](https://github.com/yihui), and [Kenton Russell](https://github.com/timelyportfolio).
-
-]
-
-
-
-
-
-
-
-  
+# ¡Gracias!
+### ¿Dudas?
