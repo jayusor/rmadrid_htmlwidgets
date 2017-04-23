@@ -1,60 +1,153 @@
 ---
 title: "RMadrid: htmlwidgets"
-subtitle: "Grupo Usuarios R Madrid"
-author: 'Jorge Ayuso Rejas  &nbsp;&nbsp; <a href="http://es.linkedin.com/pub/jorge-ayuso-rejas/64/911/25b/"  style="border-bottom: none;"><img src="img/linkedin.png">  </a><a href="mailto:jayusor@gmail.com"  style="border-bottom: none;"><img src="img/mail.jpg"></a>  <a href="https://twitter.com/jayusor"  style="border-bottom: none;"><img src="img/twitter.png"></a>@jayusor'
+subtitle: "Grupo de R y Python de Madrid"
+author: 'Jorge Ayuso Rejas'
 date: "Abril 2017"
+
 output:
-  ioslides_presentation:
-    widescreen: true
-    smaller: true
+  xaringan::moon_reader:
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
 ---
 
-
 ```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(echo = TRUE,cache=FALSE)
 ```
+class: inverse, center, middle
+
+#  ¿el principio del fin de ggplot?
+
+---
 
 ## Tipos de gráficos (según yo)
 
 Cuando estoy trabajando con datos distingo dos tipos de gráficos:
 
-&nbsp;
+&nbsp;   
+
+--
 
 ### los míos
 
-Suelen ser feos, técnicos y que uso de manera exploratoria para entender los datos
+Suelen ser feos, técnicos y que uso de manera exploratoria para entender los datos.
 
-&nbsp;
+&nbsp;   
+
+--
+
 
 ### para otros
 
-Suelen ser más bonitos, fáciles de entender y autoexplicativos
+Suelen ser más bonitos, fáciles de entender y autoexplicativos (por lo menos intento que sean así...).
 
+---
 
-## Gráficos básicos (en la intimidad)
+.left-column[
+## Gráficos básicos
+*en la intimidad*
+]
+.right-column[
 
-```{r,fig.align='center',fig.width=10}
+&nbsp;  
+&nbsp;  
+
+```{r,fig.align='center',fig.width=10,fig.height=6}
 par(mfrow=c(1,2))
 boxplot(Sepal.Length~Species,iris,col=2:4)
 plot(density(iris$Sepal.Length))
 ```
+]
+---
 
 
-## Gráficos de calidad: `ggplot2`
+.left-column[
+## Gráficos de calidad
+`ggplot2`
+]
+.right-column[
 
-```{r,fig.align='center',echo=FALSE}
+```{r,include=FALSE}
+data(Titanic)
+Titanic<-as.data.frame(Titanic)
+Titanic<-aggregate(Freq~Class+Sex+Survived,Titanic,sum)
 library(ggplot2)
-readRDS("ggplot_example.rds") + ggtitle("Serie de pasajeros")
 ```
 
+```{r,fig.align='center',fig.width=10,fig.height=6}
+ggplot(
+  Titanic,
+  aes(x = Survived,y = Freq,fill = Class)
+) + 
+geom_bar(stat = "identity") +
+facet_wrap(~Sex) + theme_bw() + 
+scale_fill_manual(
+  values = c("#69D2E7","#A7DBD8","#E0E4CC","#F38630")
+)
+```
+]
 
-## ¿Cuantás veces imprimes una presentación?
-
-> Esto me lo pones en una PPT
-
+---
+## ¿Cuántas veces imprimes una presentación?
 
 
-## Gráficos interactivos: molan
+> *Esto me lo pones en una PPT*
+
+
+&nbsp;   
+
+
+> *Esto está muy bien pero mejor una PPT*
+
+&nbsp;   
+
+--
+
+.center[
+![gif](https://media.giphy.com/media/IRfWw6HOhknQs/giphy.gif)
+]
+
+
+---
+class: center, middle, inverse
+## Los gráficos javascript  molan
+
+![js](./img/Mmww2.png)
+
+---
+.left-column[
+## Gráficos javascript
+
+]
+.right-column[
+
+Los gráficos en `javascript` son interactivos, están diseñados por y para las webs pero también podemos usarlos en presentaciones (como en esta!), no se pixelan...
+
+
+&nbsp;   
+
+
+> OK, me has convencido, pero yo no sé `javascript`...
+
+&nbsp;   
+
+
+¡No pasa nada! Desde `R` podemos crearlos sin tener ni idea.
+
+
+:D
+
+]
+
+---
+.left-column[
+## Gráficos javascript
+## Ejemplos
+]
+.right-column[
+Existen multitud de paquetes
 
 * googleVis: https://cran.r-project.org/web/packages/googleVis/vignettes/googleVis_examples.html
 * rCharts: http://ramnathv.github.io/rCharts/
@@ -67,40 +160,117 @@ readRDS("ggplot_example.rds") + ggtitle("Serie de pasajeros")
 * DiagrammeR: http://rich-iannone.github.io/DiagrammeR/
 * ...
 
+]
 
-## El primero de todos: `rCharts`
+---
+.left-column[
+## Gráficos javascript
+## Ejemplos
+### - highcharter
 
+]
+.right-column[
+highcharter es un  nos permite hacer cosas
+```{r,include=FALSE}
+library(highcharter)
+data(mpg, package = "ggplot2")
 
-
-```{r,results='asis'}
-library(rCharts)
-hair_eye_male <- subset(as.data.frame(HairEyeColor), Sex == "Male")
-n1 <- nPlot(Freq ~ Hair, group = "Eye", data = hair_eye_male, type = "multiBarChart")
-n1$show("iframesrc", cdn = TRUE)
 ```
 
+```{r,fig.width=8,fig.height=5,fig.align='center'}
+library(highcharter)
+hchart(
+  mpg, "scatter",
+  hcaes(x = displ, y = hwy, group = class)
+)
+```
 
+]
+
+---
+.left-column[
+## Gráficos javascript
+## Ejemplos
+### - highcharter
+### - dygraph
+
+]
+.right-column[
+dygraph para series temporales
+```{r,fig.width=8,fig.height=5,fig.align='center'}
+library(dygraphs)
+cbind(mdeaths, fdeaths) %>% 
+  dygraph() %>% dyRangeSelector()
+```
+]
+
+
+---
+.left-column[
+## Gráficos javascript
+## Ejemplos
+### - highcharter
+### - dygraph
+### - leaflet
+
+]
+.right-column[
+dygraph para series temporales
+```{r,fig.width=8,fig.height=5,fig.align='center'}
+library(leaflet)
+leaflet() %>%
+  addTiles() %>%
+  addMarkers(
+    lng=-3.6959795, lat=40.41052682,
+    popup="The birthplace of R"
+  )
+```
+]
+
+
+
+---
+class: center, middle, inverse
 ## ¿Qué tienen en común?
 
-```{r}
-c()
-```
+---
+class: center, middle
+## htmlwidgets
+
+http://www.htmlwidgets.org/
 
 
 
-
-
-
-
+---
 ## htmlwidget
 
 http://gallery.htmlwidgets.org/
 
+---
 ## Mi paquete
 
 
+---
+class: center, middle, inverse
+## htmlwidgets
+---
+layout: false
+.left-column[
+  ## What is it?
+]
+.right-column[
+  **A framework to easily create bindings between R and JavaScript libraries.**
+  
+  Started as a project by [Ramnath Vaidyanathan](https://github.com/ramnathv), based on [JJ Allaire](https://github.com/jjallaire)'s justgage project.
+  
+  Now a team effort by  Ramnath Vaidyanathan, [Joe Cheng](https://github.com/jcheng5), JJ Allaire, [Yihui Xie](https://github.com/yihui), and [Kenton Russell](https://github.com/timelyportfolio).
+
+]
 
 
 
 
 
+
+
+  
