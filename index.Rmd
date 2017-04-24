@@ -435,7 +435,6 @@ Obtenemos la siguiente estructura:
 ├── man
 └── R
 ```
-
 ]
 
 ---
@@ -449,8 +448,6 @@ Obtenemos la siguiente estructura:
 .right-column[
 
 Es hora de crear los *bindings*, aquí hay que escribir un poco de `javascript`:
-
-
 
 ```{r,eval=FALSE}
 HTMLWidgets.widget({
@@ -475,9 +472,57 @@ HTMLWidgets.widget({
   }
 });
 ```
+]
+
+---
+.left-column[
+## LiquidGauge
+### - Idea inicial
+### - La estructura
+### - Los *bindings*
+### - Desde `R`
 
 
 ]
+.right-column[
+
+Desde `R` usamos la función creada:
+
+<style>
+.html-widget{
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
+```{r,fig.width=3,fig.height=3}
+library(LiquidGaugeR)
+opt <- list(
+  circleThickness = 0.15,
+  circleColor = "#808015",
+  textColor = "#555500",
+  waveTextColor = "#FFFFAA",
+  waveColor = "#AAAA39",
+  textVertPosition = 0.8,
+  waveAnimateTime = 1000,
+  waveHeight = 0.05,
+  waveCount = 3
+)
+liquid_gauge(32,options = opt)
+```
+]
+
+
+---
+## Conclusiones
+
+--
++ El paquete `htmlwidgets` nos permite crear visualizaciones de `javascript` desde R.
+--
++ Existe multitud de paquetes para todo tipo necesidades.
+--
++ También nos 
+
 
 
 ---
