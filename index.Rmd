@@ -1,6 +1,6 @@
 ---
 title: "RMadrid: htmlwidgets"
-subtitle: "Grupo de R y Python de Madrid"
+subtitle: "Grupo de Usuarios R Madrid"
 author: 'Jorge Ayuso Rejas'
 date: "Abril 2017"
 
@@ -123,7 +123,7 @@ class: center, middle, inverse
 ]
 .right-column[
 
-Los gráficos en `javascript` son interactivos, están diseñados por y para las webs pero también podemos usarlos en presentaciones (como en esta!), no se pixelan, y nos puende aportar mucha más información con un click.
+Los gráficos en `javascript` son interactivos, están diseñados por y para las webs, también podemos usarlos en presentaciones (como en esta!), no se pixelan, y nos puende aportar mucha más información con un click.
 
 
 &nbsp;   
@@ -147,15 +147,21 @@ Los gráficos en `javascript` son interactivos, están diseñados por y para las
 ## Ejemplos
 ]
 .right-column[
-Existen multitud de paquetes
 
-* googleVis: https://cran.r-project.org/web/packages/googleVis/vignettes/googleVis_examples.html
+Existen paquetes con esta idea desde finales de 2010 aunque en los dos últimos años se han disparado, algunos de estos son:
+
+&nbsp;   
+
+
+* googleVis: https://cran.r-project.org/web/packages/googleVis/index.html
 * rCharts: http://ramnathv.github.io/rCharts/
 * ggvis: http://ggvis.rstudio.com/
 * plotly: https://plot.ly/r/
+* leaflet: https://rstudio.github.io/leaflet/
+* DT: https://rstudio.github.io/DT/
 * rbokeh: http://hafen.github.io/rbokeh/
 * dygraphs: https://rstudio.github.io/dygraphs/
-* leaflet: https://rstudio.github.io/leaflet/
+* networkD3: https://christophergandrud.github.io/networkD3/
 * highcharter: http://jkunst.com/highcharter/
 * DiagrammeR: http://rich-iannone.github.io/DiagrammeR/
 * ...
@@ -164,20 +170,26 @@ Existen multitud de paquetes
 
 ---
 .left-column[
-## Gráficos javascript
 ## Ejemplos
 ### - highcharter
 
 ]
 .right-column[
-highcharter es un  nos permite hacer cosas
+Mi favorito. Permite realizar todo tipo de gráficos y reproducir cualquier gráfico "tipico excel" que tengamos en la cabeza. Además es un paquete muy moderno, con una documentación muy buena y altamente configurable.
+
 ```{r,include=FALSE}
 library(highcharter)
 data(mpg, package = "ggplot2")
 
 ```
 
-```{r,fig.width=8,fig.height=5,fig.align='center'}
+<style>
+.highchart{
+  height: 360px !important;
+}
+</style>
+
+```{r,fig.width=0.5,fig.height=0.5,fig.align='center'}
 library(highcharter)
 hchart(
   mpg, "scatter",
@@ -189,25 +201,29 @@ hchart(
 
 ---
 .left-column[
-## Gráficos javascript
 ## Ejemplos
 ### - highcharter
 ### - dygraphs
 
 ]
 .right-column[
-dygraph para series temporales
-```{r,fig.width=8,fig.height=5,fig.align='center'}
+Paquete muy recomendable para series temporales, además es compatible los objetos de tipo serie temporal y sus predicciones.
+
+
+```{r,fig.width=8,fig.height=4,fig.align='center'}
 library(dygraphs)
-cbind(mdeaths, fdeaths) %>% 
-  dygraph() %>% dyRangeSelector()
+hw <- HoltWinters(ldeaths)
+predicted <- predict(hw, n.ahead = 72, prediction.interval = TRUE)
+
+dygraph(predicted, main = "Predicted Lung Deaths (UK)") %>%
+  dyAxis("x", drawGrid = FALSE) %>%
+  dySeries(c("lwr", "fit", "upr"), label = "Deaths")
 ```
 ]
 
 
 ---
 .left-column[
-## Gráficos javascript
 ## Ejemplos
 ### - highcharter
 ### - dygraphs
@@ -215,11 +231,11 @@ cbind(mdeaths, fdeaths) %>%
 
 ]
 .right-column[
-dygraph para series temporales
-```{r,fig.width=8,fig.height=5,fig.align='center'}
+El rey de los mapas, nos permite hacer visualizaciones de puntos, líneas, polígonos... 
+```{r,fig.width=8,fig.height=4,fig.align='center'}
 library(leaflet)
 leaflet() %>%
-  addTiles() %>%
+  addProviderTiles(providers$CartoDB.Positron) %>% 
   addMarkers(
     lng=-3.6959795, lat=40.41052682,
     popup="Meetup R"
@@ -229,7 +245,6 @@ leaflet() %>%
 
 ---
 .left-column[
-## Gráficos javascript
 ## Ejemplos
 ### - highcharter
 ### - dygraphs
@@ -238,15 +253,20 @@ leaflet() %>%
 
 ]
 .right-column[
-`diagrammeR`
-```{r,fig.width=8,fig.height=5,fig.align='center'}
+Hay sitio para todo, también para los esquemas.
+
+Escribiéndolos a mano o convierto desde un grafo de `igraph` podemos realizar esquemas para nuestras presentaciones y proyectos.
+
+
+```{r,fig.width=8,fig.height=3,fig.align='center'}
 library(DiagrammeR)
 grViz("
-  digraph {
-    layout = twopi
-    node [shape = circle]
-    A -> {B C D} 
-}")
+digraph a_nice_graph {
+node [fontname = Helvetica]
+a -> {b c d}
+c -> d
+}
+")
 ```
 ]
 
@@ -277,7 +297,7 @@ http://www.htmlwidgets.org/
 &nbsp;
 
 --
-+ Pudes usar los gráficos como un `plot` desde la consola
++ Puedes usar los gráficos igual que un `plot` desde la consola
 
 ```{r,eval=FALSE}
 library(highcharter)
@@ -317,29 +337,20 @@ liquid_gauge(37)
 
 ---
 .left-column[
-## LiquidGaugeR
+## LiquidGauge
 ### - Idea inicial
 
 ]
 .right-column[
 
-En la web de `htmlwidget` existe un tutorial de como crear nuevos paquetes:
-
-
-http://www.htmlwidgets.org/develop_intro.html
-
-
-&nbsp;   
-
-
-Quería probar así que busqué un gráfico fácil y sencillo:
-
-&nbsp;   
+En la web de `htmlwidget` existe un tutorial de como crear nuevos paquetes,
+quería probar así que busqué un gráfico fácil y sencillo para seguir el [tutorial](http://www.htmlwidgets.org/develop_intro.html):
 
 <style>
 .container {
   display: flex; /* or inline-flex */
-  justify-content: space-between 
+  justify-content: space-between;
+  margin: 120px 0 20px 0;
 }
 </style>
 
@@ -381,11 +392,93 @@ list(
 liquid_gauge(46,opciones2)
 ```
 ]
-http://bl.ocks.org/brattonc/5e5ce9beee483220e2f6
 
-  
+
+<center>
+<a href="http://bl.ocks.org/brattonc/5e5ce9beee483220e2f6">http://bl.ocks.org/brattonc/5e5ce9beee483220e2f6</a>
+</center>
+]
+
+
+
+---
+.left-column[
+## LiquidGauge
+### - Idea inicial
+### - La estructura
 
 ]
+.right-column[
+
+Creamos la estructura del paquete:
+
+```{r,eval=FALSE}
+devtools::create("LiquidGaugeR")
+setwd("LiquidGaugeR")
+htmlwidgets::scaffoldWidget(
+  "LiquidGaugeR",
+  bowerPkg = "d3-liquid-fill-gauge"
+)
+devtools::install()
+```
+
+&nbsp;   
+
+Obtenemos la siguiente estructura:
+
+```{r,eval=FALSE,engine='bash'}
+├── inst
+│   └── htmlwidgets
+│       └── lib
+│           ├── d3
+│           └── d3-liquid-fill-gauge
+├── man
+└── R
+```
+
+]
+
+---
+.left-column[
+## LiquidGauge
+### - Idea inicial
+### - La estructura
+### - Los *bindings*
+
+]
+.right-column[
+
+Es hora de crear los *bindings*, aquí hay que escribir un poco de `javascript`:
+
+
+
+```{r,eval=FALSE}
+HTMLWidgets.widget({
+
+  name: 'liquid_gauge',
+  type: 'output',
+
+  factory: function(el, width, height,x) {
+
+    var id_gauge = el.id+"_gauge";
+
+    d3.select(el)
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("id",id_gauge);
+
+    var gauge = d3.select("#"+id_gauge);
+    return {
+      gauge.call(d3.liquidfillgauge,x.number,x.options)
+    };
+  }
+});
+```
+
+
+]
+
 
 ---
 class: center, middle, inverse
