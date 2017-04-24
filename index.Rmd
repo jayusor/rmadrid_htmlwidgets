@@ -63,7 +63,7 @@ Suelen ser más bonitos, fáciles de entender y autoexplicativos (por lo menos i
 &nbsp;  
 &nbsp;  
 
-```{r,fig.align='center',fig.width=10,fig.height=6}
+```{r basicos,fig.align='center',fig.width=10,fig.height=6}
 par(mfrow=c(1,2))
 boxplot(Sepal.Length~Species,iris,col=2:4)
 plot(density(iris$Sepal.Length))
@@ -85,7 +85,7 @@ Titanic<-aggregate(Freq~Class+Sex+Survived,Titanic,sum)
 library(ggplot2)
 ```
 
-```{r,fig.align='center',fig.width=10,fig.height=6}
+```{r ggplot,fig.align='center',fig.width=10,fig.height=6}
 ggplot(
   Titanic,
   aes(x = Survived,y = Freq,fill = Class)
@@ -116,7 +116,7 @@ scale_fill_manual(
 --
 
 .center[
-![gif](https://media.giphy.com/media/IRfWw6HOhknQs/giphy.gif)
+![gif](./img/matar.gif)
 ]
 
 
@@ -170,23 +170,17 @@ Los gráficos en `javascript` son interactivos, están diseñados por y para las
 .right-column[
 En `R` existen paquetes con esta idea desde finales de 2010 aunque en los dos últimos años se han disparado.
 ]
-
 --
-
 .right-column[
-
 Algunos de estos son:
 
 <style>
 .listado li{
   margin:7px 0;
 }
-
-}
 </style>
 
 .listado[
-
 * `googleVis`: https://cran.r-project.org/web/packages/googleVis/index.html
 * `rCharts`: http://ramnathv.github.io/rCharts/
 * `ggvis`: http://ggvis.rstudio.com/
@@ -550,6 +544,9 @@ liquid_gauge(32,options = opt)
 ---
 ## Conclusiones
 
+&nbsp;  
+
+
 --
 
 + El paquete `htmlwidgets` nos permite crear visualizaciones de `javascript` desde R.
@@ -567,12 +564,14 @@ liquid_gauge(32,options = opt)
 + Aprender algo de `D3.js` viene bien: https://www.meetup.com/es-ES/Madrid-D3-js/.
 
 
+--
+
++ Yo he dejado de usar practicamente `ggplot`.
 
 
 ---
 class: center, middle, inverse
 # ¡Gracias!
-### ¿Dudas?
 
 <style>
 .footnote{
@@ -600,4 +599,8 @@ Jorge Ayuso Rejas
 </div>
 
 ]
+
+--
+
+### ¿Dudas?
 
