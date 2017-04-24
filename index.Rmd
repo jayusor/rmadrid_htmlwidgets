@@ -7,14 +7,22 @@ date: "Abril 2017"
 output:
   xaringan::moon_reader:
     nature:
-      highlightStyle: github
+      highlightStyle: tomorrow-night-eighties
+      highlightLanguage: javascript, r, python, bash
       highlightLines: true
       countIncrementalSlides: false
 ---
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
-knitr::opts_chunk$set(echo = TRUE,cache=FALSE)
+knitr::opts_chunk$set(
+  echo = TRUE,
+  cache = FALSE,
+  warning = FALSE,
+  error = FALSE,
+  message = FALSE
+)
+htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 ```
 class: inverse, center, middle
 
@@ -93,13 +101,14 @@ scale_fill_manual(
 ## ¿Cuántas veces imprimes una presentación?
 
 
-> *Esto me lo pones en una PPT*
+> *"Esto me lo pones en una PPT"*   
+
+> *"Esto está muy bien pero mejor una PPT de toda la vida"*   
+
+> ...
 
 
 &nbsp;   
-
-
-> *Esto está muy bien pero mejor una PPT*
 
 &nbsp;   
 
@@ -129,15 +138,26 @@ Los gráficos en `javascript` son interactivos, están diseñados por y para las
 &nbsp;   
 
 
-> OK, me has convencido, pero yo no sé `javascript`...
-
 &nbsp;   
 
 
-¡No pasa nada! Desde `R` podemos crearlos sin tener ni idea.
+> OK, me has convencido, pero yo no sé `javascript`...
 
+]
 
-:D
+--
+
+.right-column[
+
+&nbsp;   
+
+**¡No pasa nada! Desde `R` podemos crearlos sin tener ni idea**
+
+<center>
+<div style="margin: 50px;">
+<i style="color:#FFD700;" class="fa fa-trophy fa-5x"></i>
+</div>
+</center>
 
 ]
 
@@ -147,25 +167,38 @@ Los gráficos en `javascript` son interactivos, están diseñados por y para las
 ## Ejemplos
 ]
 .right-column[
+En `R` existen paquetes con esta idea desde finales de 2010 aunque en los dos últimos años se han disparado.
+]
 
-Existen paquetes con esta idea desde finales de 2010 aunque en los dos últimos años se han disparado, algunos de estos son:
+--
 
-&nbsp;   
+.right-column[
 
+Algunos de estos son:
 
-* googleVis: https://cran.r-project.org/web/packages/googleVis/index.html
-* rCharts: http://ramnathv.github.io/rCharts/
-* ggvis: http://ggvis.rstudio.com/
-* plotly: https://plot.ly/r/
-* leaflet: https://rstudio.github.io/leaflet/
-* DT: https://rstudio.github.io/DT/
-* rbokeh: http://hafen.github.io/rbokeh/
-* dygraphs: https://rstudio.github.io/dygraphs/
-* networkD3: https://christophergandrud.github.io/networkD3/
-* highcharter: http://jkunst.com/highcharter/
-* DiagrammeR: http://rich-iannone.github.io/DiagrammeR/
+<style>
+.listado li{
+  margin:7px 0;
+}
+
+}
+</style>
+
+.listado[
+
+* `googleVis`: https://cran.r-project.org/web/packages/googleVis/index.html
+* `rCharts`: http://ramnathv.github.io/rCharts/
+* `ggvis`: http://ggvis.rstudio.com/
+* `plotly`: https://plot.ly/r/
+* `leaflet`: https://rstudio.github.io/leaflet/
+* `DT`: https://rstudio.github.io/DT/
+* `rbokeh`: http://hafen.github.io/rbokeh/
+* `dygraphs`: https://rstudio.github.io/dygraphs/
+* `networkD3`: https://christophergandrud.github.io/networkD3/
+* `highcharter`: http://jkunst.com/highcharter/
+* `DiagrammeR`: http://rich-iannone.github.io/DiagrammeR/
 * ...
-
+]
 ]
 
 ---
@@ -517,11 +550,21 @@ liquid_gauge(32,options = opt)
 ## Conclusiones
 
 --
+
 + El paquete `htmlwidgets` nos permite crear visualizaciones de `javascript` desde R.
+
 --
+
 + Existe multitud de paquetes para todo tipo necesidades.
+
 --
-+ También nos 
+
++ También nos aporta un `framework` para hacer nuevos paquetes de manera sencilla.
+
+--
+
++ Aprender algo de `D3.js` viene bien: https://www.meetup.com/es-ES/Madrid-D3-js/.
+
 
 
 
@@ -529,3 +572,31 @@ liquid_gauge(32,options = opt)
 class: center, middle, inverse
 # ¡Gracias!
 ### ¿Dudas?
+
+<style>
+.footnote{
+  width: 100%;
+  text-align: left;
+}
+.footnote a{
+  color: inherit;
+  text-decoration: inherit;
+}
+</style>
+
+.footnote[
+Jorge Ayuso Rejas    
+
+<a href="https://github.com/jayusor/"><i class="fa fa-github"></i></a>
+&nbsp;&nbsp;
+<a href="https://www.linkedin.com/in/jorgeayusorejas/"><i class="fa fa-linkedin"></i></a>
+&nbsp;&nbsp;
+<a href="https://twitter.com/jayusor"><i class="fa fa-twitter">@jayusor</i></a>
+ 
+
+<div style="position:absolute;right:100px;top:18px;">
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Licencia Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+</div>
+
+]
+
